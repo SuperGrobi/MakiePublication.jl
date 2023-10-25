@@ -146,7 +146,8 @@ function theme_acs(;
         Lines=line_theme,
         Scatter=scatter_theme,
         Legend=legend_theme,)
-    if use_texfont
+
+    if usetexfont
         return Theme(; theme_args..., fonts=fonts)
     else
         return Theme(; theme_args...)
