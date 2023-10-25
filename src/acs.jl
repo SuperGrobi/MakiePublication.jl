@@ -16,21 +16,23 @@ Save the figure using `savefig("path_to_figure.pdf", fig)` or `save("path_to_fig
 - `linecycle=nothing`: `Cycle` instance used by `Line` plots. If it is `nothing`, then `cycle` value will be used instead.
 - `scattercycle=nothing`: `Cycle` instance used by `Scatter` plots. If it is `nothing`, then `cycle` value will be used instead.
 - `markerstrokewidth=0`: customize the stroke width of markers.
+- `heightwidthratio=HWRATIO`: set the aspect ratio of the figure as a multiple of `width`.
 
 See also [`theme_aps`](@ref), [`theme_rsc`](@ref), and [`theme_web`](@ref).
 """
 function theme_acs(;
-                   width=3.25,
-                   colors=COLORS[1],
-                   linestyles=LINESTYLES,
-                   markers=MARKERS,
-                   ishollowmarkers=nothing,  # a list of true, false values.
-                   palette=nothing,
-                   cycle=CYCLE,
-                   linecycle=nothing,
-                   scattercycle=nothing,
-                   markerstrokewidth=0,  # change to linewidth to make hollo markers.
-                   )
+    width=3.25,
+    colors=COLORS[1],
+    linestyles=LINESTYLES,
+    markers=MARKERS,
+    ishollowmarkers=nothing,  # a list of true, false values.
+    palette=nothing,
+    cycle=CYCLE,
+    linecycle=nothing,
+    scattercycle=nothing,
+    markerstrokewidth=0,  # change to linewidth to make hollo markers.
+    heightwidthratio=HWRATIO
+)
     colors = isnothing(colors) ? COLORS : colors
     n = length(colors)
     # if no hollow markers specified, the length is 1, and its value is false.
@@ -125,20 +127,20 @@ function theme_acs(;
     )
 
     pal = (color=colors,
-           markercolor=markercolors,
-           linestyle=linestyles,
-           marker=markers,
-           )
+        markercolor=markercolors,
+        linestyle=linestyles,
+        marker=markers,
+    )
     palette = isnothing(palette) ? pal : palette
 
     return Theme(figure_padding=0,
-                 resolution=figsize(width),
-                 # font="Helvetica",
-                 palette=palette,
-                 Axis=axis_theme,
-                 Lines=line_theme,
-                 Scatter=scatter_theme,
-                 Legend=legend_theme,)
+        resolution=figsize(width, heightwidthratio),
+        # font="Helvetica",
+        palette=palette,
+        Axis=axis_theme,
+        Lines=line_theme,
+        Scatter=scatter_theme,
+        Legend=legend_theme,)
 end
 
 "One-column figure for ACS, which is identical to [`theme_acs`](@ref)."
