@@ -1,7 +1,6 @@
 module MakiePublication
 
 using Makie
-using CairoMakie
 using Colors
 using ColorSchemes
 
