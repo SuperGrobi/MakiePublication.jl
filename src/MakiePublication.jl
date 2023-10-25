@@ -4,6 +4,7 @@ using Makie
 using CairoMakie
 using Colors
 using ColorSchemes
+using MathTeXEngine
 
 include("defaults.jl")
 
